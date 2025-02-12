@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Home.css";
 import { motion } from "framer-motion";
+import { BACKEND_URL } from "../urls";
 
 const Home = () => {
+  const [wallpapers, setWallpapers] = useState([]);
+
+  useEffect(() => {
+    fetch(`${BACKEND_URL}/wallpapers/latest`)
+      .then((res) => res.json())
+      .then((data) => {
+        setWallpapers(data);
+      })
+      .catch((err) => {
+        setError("Failed to fetch wallpapers");
+      });
+  }, []);
+
   return (
     <div className="home-container">
       <header className="hero-section">
@@ -49,89 +63,29 @@ const Home = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          <img
-            src="https://i.pinimg.com/236x/43/5b/92/435b9276f43737f1ae7af221c988b1c1.jpg"
-            alt="Wallpaper 1"
-            className="gallery-item item-9-16"
-          />
-          <img
-            src="https://www.spigen.com/cdn/shop/files/mag_wallpaper_01.jpg?v=1716933335"
-            alt="Wallpaper 2"
-            className="gallery-item item-1-1"
-          />
-          <img
-            src="https://c4.wallpaperflare.com/wallpaper/410/867/750/vector-forest-sunset-forest-sunset-forest-wallpaper-thumb.jpg"
-            alt="Wallpaper 4"
-            className="gallery-item item-16-9"
-          />
-          <img
-            src="https://www.spigen.com/cdn/shop/files/mag_wallpaper_01.jpg?v=1716933335"
-            alt="Wallpaper 3"
-            className="gallery-item item-1-1"
-          />
-
-          <img
-            src="https://i.pinimg.com/236x/43/5b/92/435b9276f43737f1ae7af221c988b1c1.jpg"
-            alt="Wallpaper 1"
-            className="gallery-item item-9-16"
-          />
-          <img
-            src="https://www.spigen.com/cdn/shop/files/mag_wallpaper_01.jpg?v=1716933335"
-            alt="Wallpaper 2"
-            className="gallery-item item-1-1"
-          />
-          <img
-            src="https://c4.wallpaperflare.com/wallpaper/410/867/750/vector-forest-sunset-forest-sunset-forest-wallpaper-thumb.jpg"
-            alt="Wallpaper 4"
-            className="gallery-item item-16-9"
-          />
-          <img
-            src="https://www.spigen.com/cdn/shop/files/mag_wallpaper_01.jpg?v=1716933335"
-            alt="Wallpaper 3"
-            className="gallery-item item-1-1"
-          />
-
-          <img
-            src="https://i.pinimg.com/236x/43/5b/92/435b9276f43737f1ae7af221c988b1c1.jpg"
-            alt="Wallpaper 1"
-            className="gallery-item item-9-16"
-          />
-          <img
-            src="https://www.spigen.com/cdn/shop/files/mag_wallpaper_01.jpg?v=1716933335"
-            alt="Wallpaper 2"
-            className="gallery-item item-1-1"
-          />
-          <img
-            src="https://c4.wallpaperflare.com/wallpaper/410/867/750/vector-forest-sunset-forest-sunset-forest-wallpaper-thumb.jpg"
-            alt="Wallpaper 4"
-            className="gallery-item item-16-9"
-          />
-          <img
-            src="https://www.spigen.com/cdn/shop/files/mag_wallpaper_01.jpg?v=1716933335"
-            alt="Wallpaper 3"
-            className="gallery-item item-1-1"
-          />
-
-          <img
-            src="https://i.pinimg.com/236x/43/5b/92/435b9276f43737f1ae7af221c988b1c1.jpg"
-            alt="Wallpaper 1"
-            className="gallery-item item-9-16"
-          />
-          <img
-            src="https://www.spigen.com/cdn/shop/files/mag_wallpaper_01.jpg?v=1716933335"
-            alt="Wallpaper 2"
-            className="gallery-item item-1-1"
-          />
-          <img
-            src="https://c4.wallpaperflare.com/wallpaper/410/867/750/vector-forest-sunset-forest-sunset-forest-wallpaper-thumb.jpg"
-            alt="Wallpaper 4"
-            className="gallery-item item-16-9"
-          />
-          <img
-            src="https://www.spigen.com/cdn/shop/files/mag_wallpaper_01.jpg?v=1716933335"
-            alt="Wallpaper 3"
-            className="gallery-item item-1-1"
-          />
+          {wallpapers.map((wallpaper) => {
+            // Check if the aspect ratio is already loaded
+            return (
+              <img
+                key={wallpaper.id}
+                src={`${BACKEND_URL}/${wallpaper.imageUrl}`}
+                className={`gallery-item ${
+                  parseInt(wallpaper.aspectRatio) === 1
+                    ? "item-9-16"
+                    : parseInt(wallpaper.aspectRatio) === 2
+                    ? "item-1-1"
+                    : "item-16-9"
+                }`}
+                alt={wallpaper.title}
+                onClick={() =>
+                  openModal(
+                    `${BACKEND_URL}/${wallpaper.imageUrl}`,
+                    wallpaper.title
+                  )
+                }
+              />
+            );
+          })}
         </motion.div>
       </section>
 

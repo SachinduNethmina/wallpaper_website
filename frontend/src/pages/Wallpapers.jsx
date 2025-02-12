@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Wallpapers.css";
 import { motion } from "framer-motion";
+import { BACKEND_URL } from "../urls";
 
 const Wallpapers = () => {
   const [wallpapers, setWallpapers] = useState([]);
@@ -11,9 +12,7 @@ const Wallpapers = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(
-      `http://localhost:8080/wallpapers?category=${category}&search=${search}`
-    )
+    fetch(`${BACKEND_URL}/wallpapers?category=${category}&search=${search}`)
       .then((res) => res.json())
       .then((data) => {
         setWallpapers(data);
@@ -26,22 +25,26 @@ const Wallpapers = () => {
   }, [search, category]);
 
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedTitle, setSelectedTitle] = useState("");
 
-  const openModal = (imageSrc) => {
-    console.log("ok");
-
+  const openModal = (imageSrc, title) => {
+    setSelectedTitle(title);
     setSelectedImage(imageSrc);
   };
 
   const closeModal = () => {
     setSelectedImage(null);
+    setSelectedTitle("");
   };
 
-  const downloadImage = (imageSrc) => {
+  const downloadImage = (imageSrc, title) => {
     const link = document.createElement("a");
     link.href = imageSrc;
-    link.download = "image.jpg";
+    link.download = `${title}.png`;
+    link.style.display = "none";
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -80,7 +83,7 @@ const Wallpapers = () => {
               return (
                 <img
                   key={wallpaper.id}
-                  src={wallpaper.imageUrl}
+                  src={`${BACKEND_URL}/${wallpaper.imageUrl}`}
                   className={`gallery-item ${
                     parseInt(wallpaper.aspectRatio) === 1
                       ? "item-9-16"
@@ -91,7 +94,8 @@ const Wallpapers = () => {
                   alt={wallpaper.title}
                   onClick={() =>
                     openModal(
-                      "https://c4.wallpaperflare.com/wallpaper/410/867/750/vector-forest-sunset-forest-sunset-forest-wallpaper-thumb.jpg"
+                      `${BACKEND_URL}/${wallpaper.imageUrl}`,
+                      wallpaper.title
                     )
                   }
                 />
@@ -102,14 +106,19 @@ const Wallpapers = () => {
 
         {selectedImage && (
           <div className="modal-c" onClick={closeModal}>
-            <div className="modal-content-c" onClick={(e) => e.stopPropagation()}>
+            <div
+              className="modal-content-c"
+              onClick={(e) => e.stopPropagation()}
+            >
               <h2 className="modal-title-c">Image Preview</h2>
               <span className="close-button" onClick={closeModal}>
                 &times;
               </span>
               <img src={selectedImage} alt="Selected" className="modal-image" />
               <div className="modal-buttons">
-                <button onClick={() => downloadImage(selectedImage)}>
+                <button
+                  onClick={() => downloadImage(selectedImage, selectedTitle)}
+                >
                   Download
                 </button>
                 <button
