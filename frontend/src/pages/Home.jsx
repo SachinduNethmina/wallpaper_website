@@ -19,6 +19,29 @@ const Home = () => {
       });
   }, []);
 
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedTitle, setSelectedTitle] = useState("");
+
+  const openModal = (imageSrc, title) => {
+    setSelectedTitle(title);
+    setSelectedImage(imageSrc);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+    setSelectedTitle("");
+  };
+
+  const downloadImage = (imageSrc, title) => {
+    const link = document.createElement("a");
+    link.href = imageSrc;
+    link.download = `${title}.png`;
+    link.style.display = "none";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="home-container">
       <header className="hero-section">
@@ -128,6 +151,30 @@ const Home = () => {
           </motion.button>
         </div>
       </section>
+
+      {selectedImage && (
+        <div className="modal-c" onClick={closeModal}>
+          <div className="modal-content-c" onClick={(e) => e.stopPropagation()}>
+            <h2 className="modal-title-c">Image Preview</h2>
+            <span className="close-button" onClick={closeModal}>
+              &times;
+            </span>
+            <img src={selectedImage} alt="Selected" className="modal-image" />
+            <div className="modal-buttons">
+              <button
+                onClick={() => downloadImage(selectedImage, selectedTitle)}
+              >
+                Download
+              </button>
+              <button
+                onClick={() => alert("Donate functionality coming soon!")}
+              >
+                Donate
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

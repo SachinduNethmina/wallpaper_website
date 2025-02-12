@@ -134,3 +134,67 @@ h2 {
   transform: scale(1.05);
   background: linear-gradient(to right, #ff4b2b, #ff416c);
 }
+
+/* modal */
+
+.modal-c {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+
+.modal-content-c {
+  position: relative;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 80%;
+  max-width: 500px;
+}
+
+.modal-title-c {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.modal-image {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.modal-buttons {
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-buttons button:hover {
+  background-color: #0056b3;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: black;
+  margin-right: 10px;
+}
+/* modal */
