@@ -22,6 +22,7 @@ const Wallpaper = sequelize.define("Wallpaper", {
   imageUrl: { type: DataTypes.STRING, allowNull: false },
   category: { type: DataTypes.STRING, allowNull: false },
   aspectRatio: { type: DataTypes.STRING, allowNull: true },
+  number: { type: DataTypes.TEXT, allowNull: true },
 });
 
 const ContactMessage = sequelize.define("ContactMessage", {
@@ -53,7 +54,7 @@ app.get("/api/wallpapers/latest", async (req, res) => {
 });
 
 app.post("/api/wallpapers", upload.any(), async (req, res) => {
-  const { title, type, category, password } = req.body;
+  const { title, type, category, password, number } = req.body;
   const files = req.files;
 
   if (password !== process.env.SECRET_KEY)
@@ -67,6 +68,15 @@ app.post("/api/wallpapers", upload.any(), async (req, res) => {
 
   if (!files || files.length === 0)
     return res.status(400).json({ message: "Invalid image" });
+
+  const exitWallpaper = await Wallpaper.findOne({
+    where: {
+      number,
+    },
+  });
+
+  if (exitWallpaper)
+    return res.status(400).json({ message: "Allready exists" });
 
   let file = files[0];
 
