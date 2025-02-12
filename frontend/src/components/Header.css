@@ -1,0 +1,4 @@
+.glass-navbar {
+  background: rgba(25, 25, 112, 0.7);
+  backdrop-filter: blur(10px);
+}

@@ -1,0 +1,111 @@
+/* Full background styling */
+.full-bg {
+  background: linear-gradient(
+    to right,
+    #1a1a2e,
+    #16213e
+  ); /* Gradient colors you specified */
+  color: white;
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh; /* Ensures the background covers the full viewport */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items to the start */
+  flex-direction: column;
+  padding-top: 20px; /* Padding at the top */
+}
+
+.about-banner {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+}
+
+.about-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-banner-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  font-size: 3rem;
+}
+
+.about-title {
+  font-size: 2.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.about-content {
+  padding: 3rem 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  /* background-color: #ffffff; */
+  border-radius: 10px; /* Optional: adds rounded corners to the content */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Optional: adds shadow effect */
+}
+
+.about-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.about-section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  margin-top: 2rem;
+  color: #3498db;
+}
+
+.about-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.team {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+
+.team-member {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .about-title {
+    font-size: 2rem;
+  }
+
+  .about-description {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .team-member {
+    width: 120px;
+    height: 120px;
+  }
+}

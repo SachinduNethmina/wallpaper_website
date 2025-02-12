@@ -1,0 +1,126 @@
+/* Full background styling */
+.full-bg {
+  background: linear-gradient(
+    to right,
+    #1a1a2e,
+    #16213e
+  ); /* Gradient colors you specified */
+  color: white;
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  padding-top: 20px;
+}
+
+.contact-banner {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+}
+
+.contact-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contact-banner-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  font-size: 3rem;
+}
+
+.contact-title {
+  font-size: 2.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.contact-content {
+  padding: 3rem 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  /* background-color: #ffffff; */
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.contact-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.contact-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact-form-field input,
+.contact-form-field textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  resize: none;
+}
+
+.contact-form-submit {
+  padding: 15px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.contact-form-submit:hover {
+  background-color: #2980b9;
+}
+
+.contact-details {
+  margin-top: 2rem;
+}
+
+.contact-section-title {
+  font-size: 1.8rem;
+  color: #3498db;
+}
+
+.contact-details p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .contact-title {
+    font-size: 2rem;
+  }
+
+  .contact-description {
+    font-size: 1rem;
+  }
+
+  .contact-section-title {
+    font-size: 1.5rem;
+  }
+}
