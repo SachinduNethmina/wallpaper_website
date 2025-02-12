@@ -91,6 +91,7 @@ app.post("/api/wallpapers", upload.any(), async (req, res) => {
     imageUrl: fileName,
     category,
     aspectRatio,
+    number,
   });
 
   res.json({ message: "Upload success", wallpaper });
